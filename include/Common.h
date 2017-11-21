@@ -28,7 +28,8 @@
 #include "assert.h"
 #include "opencv2/opencv.hpp"
 
-
+namespace iop
+{
 class AffineKeyPoint
 {
 public:
@@ -269,5 +270,8 @@ const std::string ALL_MATCH_FILES [9] = {"m50_1000_1000_0.txt",    "m50_2000_200
 	"m50_10000_10000_0.txt",  "m50_20000_20000_0.txt",   "m50_50000_50000_0.txt",
 	"m50_100000_100000_0.txt","m50_200000_200000_0.txt", "m50_500000_500000_0.txt"};
 
+} // namespace iop
+
 #endif
+
 

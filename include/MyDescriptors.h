@@ -28,6 +28,8 @@ along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #include "opencv2/opencv.hpp"
 #include <fstream>
 
+namespace iop
+{
 
 class MyDescriptors
 {
@@ -73,6 +75,6 @@ private:
     void (MyDescriptors::*m_ptrCreateFeatFunc)(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
 };
 
-
+} // namespace iop
 
 #endif

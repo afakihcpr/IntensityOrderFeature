@@ -1,6 +1,9 @@
 #include "Utils.h"
 #include "assert.h"
 
+namespace iop
+{
+
 /*---------------------------------------------------
 Normalize ROI, from ellipse to circle
 -----------------------------------------------------*/
@@ -630,3 +633,5 @@ void WriteMatrix(ofstream& ofs, const Mat& mat)
 	}	
 	return;
 }
+
+}  // namespace iop

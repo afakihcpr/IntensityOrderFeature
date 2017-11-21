@@ -7,7 +7,7 @@ int main(int argc, char* argv[])
 	char* region_file = NULL;
 	char* des_file = NULL;
 
-	Params params;
+    iop::Params params;
 
 	/*************************  Parsing the arguments  *****************************/
 	int counter=0;
@@ -19,23 +19,23 @@ int main(int argc, char* argv[])
 
 			if(strcmp(argv[counter], "liop") == 0)
 			{
-				params.des_type = LIOP;
+                params.des_type = iop::LIOP;
 			}
 			else if(strcmp(argv[counter], "oiop") == 0)
 			{
-				params.des_type = OIOP;
+                params.des_type = iop::OIOP;
 			}	
 			else if (strcmp(argv[counter], "miop") == 0)
 			{
-				params.des_type = MIOP;
+                params.des_type = iop::MIOP;
 			}
 			else if (strcmp(argv[counter], "miop_fast") == 0)
 			{
-				params.des_type = MIOP_FAST;
+                params.des_type = iop::MIOP_FAST;
 			}
 			else
-			{	cerr << "Invalid type argument!" << endl;
-			cout << "it must be csgp_kd or csgp_go!\n" << endl;
+            {	std::cerr << "Invalid type argument!" << std::endl;
+            std::cout << "it must be csgp_kd or csgp_go!\n" << std::endl;
 			return -1;
 
 			}
@@ -87,11 +87,11 @@ int main(int argc, char* argv[])
 		if( !strcmp("-liopNum", argv[counter] ))
 		{
 			params.liopNum = (int)atoi(argv[++counter]);
-			GeneratePatternMap(&params.pLiopPatternMap, &params.pLiopPosWeight, params.liopNum);
+            iop::GeneratePatternMap(&params.pLiopPatternMap, &params.pLiopPosWeight, params.liopNum);
 			if (params.liopNum != 3 && params.liopNum != 4)
 			{
-				cerr << "Invalid command line argument: \"" << argv[counter] <<"\""<< endl;
-				cerr << "The liopNum should be 3 or 4. " << endl;
+                std::cerr << "Invalid command line argument: \"" << argv[counter] <<"\""<< std::endl;
+                std::cerr << "The liopNum should be 3 or 4. " << std::endl;
 				return -1;
 			}
 			continue;
@@ -121,8 +121,8 @@ int main(int argc, char* argv[])
 
 			if (params.oiopNum != 2 && params.oiopNum != 3)
 			{
-				cerr << "Invalid command line argument: \"" << argv[counter] <<"\""<< endl;
-				cerr << "The oiopNum should be 2 or 3. " << endl;
+                std::cerr << "Invalid command line argument: \"" << argv[counter] <<"\""<< std::endl;
+                std::cerr << "The oiopNum should be 2 or 3. " << std::endl;
 				return -1;
 
 			}
@@ -171,7 +171,7 @@ int main(int argc, char* argv[])
 			continue;
 		}
 
-		cerr << "Invalid command line argument: \"" << argv[counter] <<"\""<< endl;
+        std::cerr << "Invalid command line argument: \"" << argv[counter] <<"\""<< std::endl;
 		return -1;
 	}
 
@@ -179,26 +179,26 @@ int main(int argc, char* argv[])
 	if(params.normPatchWidth%2 == 0)
 		params.normPatchWidth++;
 
-	if ((params.des_type == MIOP || params.des_type == MIOP_FAST) &&  params.isApplyPCA)
+    if ((params.des_type == iop::MIOP || params.des_type == iop::MIOP_FAST) &&  params.isApplyPCA)
 	{
-		params.desFormat = DES_FLOAT;
+        params.desFormat = iop::DES_FLOAT;
 	}
 
-	vector<AffineKeyPoint> kpts;
-	Mat dess;
+    std::vector<iop::AffineKeyPoint> kpts;
+    cv::Mat dess;
 
 	//read image and affine regions
-	Mat img = imread(img_file, IMREAD_GRAYSCALE);
+    cv::Mat img = cv::imread(img_file, cv::IMREAD_GRAYSCALE);
 	if (params.initSigma > 0)
 	{
-		GaussianBlur(img, img, Size(0, 0), params.initSigma);
+        iop::GaussianBlur(img, img, cv::Size(0, 0), params.initSigma);
 	}
-	ReadKpts(region_file, kpts);
+    iop::ReadKpts(region_file, kpts);
 
 	//extract descriptors
-	MyDescriptors commonDes(params);
+    iop::MyDescriptors commonDes(params);
 	commonDes.compute(img, kpts, dess);
-	WriteDess(des_file, kpts, dess, params.desFormat);
+    iop::WriteDess(des_file, kpts, dess, params.desFormat);
 
 	return 0;
 }

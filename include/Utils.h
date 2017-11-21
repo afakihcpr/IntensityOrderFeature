@@ -6,6 +6,8 @@
 #include <iostream>
 #include <fstream>
 
+namespace iop
+{
 
 using namespace std;
 using namespace cv;
@@ -33,5 +35,7 @@ void GetKpList(const string& kp_ext, const vector<string> img_file_list, vector<
 
 void ReadMatrix(ifstream& ifs, Mat& mat);
 void WriteMatrix(ofstream& ofs, const Mat& mat);
+
+} // namespace iop
 
 #endif

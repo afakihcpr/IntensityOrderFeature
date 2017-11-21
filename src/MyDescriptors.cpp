@@ -2,6 +2,8 @@
 #include "Utils.h"
 #include <algorithm>
 
+namespace iop
+{
 //Below are learned normalized quantization locations for OIOP
 // when oiopNum = 3
 const float oiop_fence33_o3[3*2] = {	
@@ -1465,3 +1467,4 @@ bool MyDescriptors::readPCA(const string& file)
 
 }
 
+}  // namespace iop
