@@ -28,9 +28,6 @@ along with this software.  If not, see <http://www.gnu.org/licenses/>.
 #include "opencv2/opencv.hpp"
 #include <fstream>
 
-using namespace cv;
-using namespace std;
-
 
 class MyDescriptors
 {
@@ -42,22 +39,22 @@ public:
 	virtual int descriptorType() const;
 
 
-	void compute( const Mat& image, CV_OUT CV_IN_OUT vector<AffineKeyPoint>& keypoints, CV_OUT Mat& descriptors ) const;
+    void compute(const cv::Mat& image, CV_OUT CV_IN_OUT std::vector<AffineKeyPoint>& keypoints, CV_OUT cv::Mat& descriptors) const;
 
-	void computePatchImage(const Mat& image, int patch_per_row, int patch_per_col, int patch_length, int max_patch_num,  Mat& descriptors) const;
+    void computePatchImage(const cv::Mat& image, int patch_per_row, int patch_per_col, int patch_length, int max_patch_num,  cv::Mat& descriptors) const;
 
 protected:
 
-	virtual void computeImpl(const Mat& image, vector<AffineKeyPoint>& keypoints, Mat& descriptors ) const;
+    virtual void computeImpl(const cv::Mat& image, std::vector<AffineKeyPoint>& keypoints, cv::Mat& descriptors) const;
 
 
-	void createLIOP		(const Mat& outPatch, const Mat& flagPatch, int inPatchSz, float* des) const;;
-	void createOIOP		(const Mat& outPatch, const Mat& flagPatch, int inPatchSz, float* des) const;
-	void createMIOP		(const Mat& outPatch, const Mat& flagPatch, int inPatchSz, float* des) const;
-	void createMIOP_FAST(const Mat& outPatch, const Mat& flagPatch, int inPatchSz, float* des) const;
+    void createLIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;;
+    void createOIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
+    void createMIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
+    void createMIOP_FAST(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
 
-	void removeOutBound(const Mat& image, const vector<AffineKeyPoint>& keypoints,  vector<AffineKeyPoint>& keypointsInBounds) const;
-	bool readPCA(const string& file);
+    void removeOutBound(const cv::Mat& image, const std::vector<AffineKeyPoint>& keypoints,  std::vector<AffineKeyPoint>& keypointsInBounds) const;
+    bool readPCA(const std::string& file);
 
 
 	
@@ -68,12 +65,12 @@ private:
 	Params& m_params;
 	bool m_computeDomiOri;
 
-	Mat m_PCABasis;	//each row vector is a orthon basis
-	Mat m_PCAMean;	//a row vector
+    cv::Mat m_PCABasis;	//each row vector is a orthon basis
+    cv::Mat m_PCAMean;	//a row vector
 	const float* m_fenceRatio;
 
 
-	void (MyDescriptors::*m_ptrCreateFeatFunc)(const Mat& outPatch, const Mat& flagPatch, int inPatchSz, float* des) const;
+    void (MyDescriptors::*m_ptrCreateFeatFunc)(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
 };
 
 

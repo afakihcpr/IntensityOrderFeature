@@ -29,16 +29,13 @@
 #include "opencv2/opencv.hpp"
 
 
-using namespace std;
-using namespace cv;
-
 class AffineKeyPoint
 {
 public:
 
 	AffineKeyPoint() : pt(0,0), a(1.f), b(0.f), c(1.f), angle(-1), response(0), octave(0), class_id(-1)  {}
 
-	AffineKeyPoint(Point2f _pt, float _a, float _b, float _c, float _size=1, float _angle=-1,
+    AffineKeyPoint(cv::Point2f _pt, float _a, float _b, float _c, float _size=1, float _angle=-1,
 		float _response=0, int _octave=0, int _class_id=-1)
 		: pt(_pt), a(_a), b(_b), c(_c), angle(_angle),
 		response(_response), octave(_octave), class_id(_class_id){}
@@ -48,7 +45,7 @@ public:
 		: pt(x, y), a(_a), b(_b), c(_c), angle(_angle),
 		response(_response), octave(_octave), class_id(_class_id) {}
 
-	Point2f pt; //!< coordinates of the keypoints
+    cv::Point2f pt; //!< coordinates of the keypoints
 
 	//parameters for the ellipse
 	float a;
@@ -110,7 +107,7 @@ inline T Min(T x, T y)
 // Simple error handling
 inline void FatalError(const char *msg)
 {
-	cerr << msg << endl;
+    std::cerr << msg << std::endl;
 	exit(1);
 }
 
@@ -130,7 +127,7 @@ typedef struct _Params{
 	int liopRegionNum;		// number of ordinal bins
 	int liopNum;			// number of sampling points around each pixel
 	double liopThre;			//threshold for weighting function used in ICCV paper
-	map<int,int>* pLiopPatternMap;	// LIOP index tabel
+    std::map<int,int>* pLiopPatternMap;	// LIOP index tabel
 	int * pLiopPosWeight;	// weights for encoding LIOP to  a decimal number
 
 
@@ -148,7 +145,7 @@ typedef struct _Params{
 
 	bool isAffine;		// affine covariant region or not
 
-	string PCAFile;		// pca parameters for MIOP
+    std::string PCAFile;		// pca parameters for MIOP
 	int PCABasisNum;	// the dimension after dimension reduction
 	int isApplyPCA;		// apply pca on MIOP or not
 
@@ -245,7 +242,7 @@ typedef struct _Pixel{
 //////////////////////////////////////////////////////////
 // Sture for Patch Dataset
 typedef struct _DIR_INFO{
-	string dir_name;
+    std::string dir_name;
 	int img_num;
 	int last_img_patch_num;
 	int patch_num;
@@ -268,7 +265,7 @@ const int PATCH_PER_ROW = IMG_LENGTH / PATCH_LENGTH;
 const int PATCH_PER_COL = IMG_LENGTH / PATCH_LENGTH;
 const int PATCH_PER_IMG = PATCH_PER_ROW * PATCH_PER_COL;
 
-const string ALL_MATCH_FILES [9] = {"m50_1000_1000_0.txt",    "m50_2000_2000_0.txt",     "m50_5000_5000_0.txt",
+const std::string ALL_MATCH_FILES [9] = {"m50_1000_1000_0.txt",    "m50_2000_2000_0.txt",     "m50_5000_5000_0.txt",
 	"m50_10000_10000_0.txt",  "m50_20000_20000_0.txt",   "m50_50000_50000_0.txt",
 	"m50_100000_100000_0.txt","m50_200000_200000_0.txt", "m50_500000_500000_0.txt"};
 
