@@ -42,15 +42,16 @@ public:
 
 
     void compute(const cv::Mat& image, CV_OUT CV_IN_OUT std::vector<AffineKeyPoint>& keypoints, CV_OUT cv::Mat& descriptors) const;
+    //void compute(const cv::Mat& image, CV_OUT CV_IN_OUT const std::vector<cv::KeyPoint>& keypoints, CV_OUT cv::Mat& descriptors) const;
 
     void computePatchImage(const cv::Mat& image, int patch_per_row, int patch_per_col, int patch_length, int max_patch_num,  cv::Mat& descriptors) const;
 
-protected:
+public:
 
     virtual void computeImpl(const cv::Mat& image, std::vector<AffineKeyPoint>& keypoints, cv::Mat& descriptors) const;
 
 
-    void createLIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;;
+    void createLIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
     void createOIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
     void createMIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
     void createMIOP_FAST(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
@@ -60,7 +61,7 @@ protected:
 
 
 	
-private:
+public:
 	int m_dim;
 	int m_bytes;
 	int m_dataType;

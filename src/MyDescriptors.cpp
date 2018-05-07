@@ -296,6 +296,68 @@ void MyDescriptors::compute( const Mat& image, vector<AffineKeyPoint>& keypoints
 	computeImpl( image, keypoints, descriptors );
 }
 
+/*void MyDescriptors::compute(const cv::Mat& image, const std::vector<cv::KeyPoint>& keypoints,  cv::Mat& descriptors) const
+{
+   const auto num = keypoints.size();
+   descriptors = Mat::zeros(num, m_dim, CV_32F);
+   float* des_data = (float*)descriptors.data;
+   int des_step = descriptors.step1();
+
+    //To add some borders to avoid border effect only. Actually we use the inside  patch to extract descriptor
+    int outPatchWidth = m_params.normPatchWidth+16;
+    if(outPatchWidth%2 == 0)
+        outPatchWidth++;
+
+    const int outRadius = outPatchWidth/2;
+    const int outRadius2 = outRadius*outRadius;
+
+    for (auto i = 0; i < num; ++i)
+    {
+      const cv::KeyPoint& keypoint = keypoints[i];
+      const float scale = keypoint.size;
+      cv::Mat outPatch(outPatchWidth, outPatchWidth, CV_32FC1);
+      cv::Mat flagPatch(outPatchWidth, outPatchWidth, CV_8UC1);
+
+      const openMVG::image::Sampler2d<openMVG::image::SamplerLinear> sampler;
+
+    // pointer alias
+    //unsigned char * flagPatch_data = flagPatch.data();
+    //float * outPatch_data = outPatch.data();
+
+    int out_step = outPatch.step1();
+    float *out_data = (float*)outPatch.data;
+
+    int flag_step = flagPatch.step1();
+    uchar *flag_data = (uchar*)flagPatch.data;
+
+    for (int y=-outRadius; y<=outRadius; ++y)
+    {
+      const float ys = y*scale+feat.y();
+      if (ys<0 || ys>I.Height()-1)
+        continue;
+
+      for (int x=-outRadius; x<=outRadius; ++x)
+      {
+        const float dis2 = (float)(x*x + y*y);
+        if (dis2 > outRadius2)
+          continue;
+
+        const float xs = x*scale+feat.x();
+        if (xs<0 || xs>I.Width()-1)
+          continue;
+
+        //outPatch_data[(y+outRadius)*outPatchWidth+x+outRadius] = sampler(I, ys, xs);
+        //flagPatch_data[(y+outRadius)*outPatchWidth+x+outRadius] = 1;
+
+        out_data [(y + outRadius) * out_step  + (x + outRadius)] = sampler(I, ys, xs);
+        flag_data[(y + outRadius) * flag_step + (x + outRadius)] = 1;
+      }
+    }
+    cv::GaussianBlur(outPatch, outPatch, cv::Size(0, 0), 1.2);
+   // openMVG::image::ImageGaussianFilter(openMVG::image::Image<float>(outPatch), 1.2, outPatch);
+   extractor.createLIOP(outPatch, flagPatch, extractor.m_params.normPatchWidth, desc);
+}*/
+
 int MyDescriptors::descriptorSize() const
 {
 	return m_bytes;

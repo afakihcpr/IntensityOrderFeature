@@ -45,6 +45,13 @@ public:
 		float _response=0, int _octave=0, int _class_id=-1)
 		: pt(x, y), a(_a), b(_b), c(_c), angle(_angle),
 		response(_response), octave(_octave), class_id(_class_id) {}
+    
+    /*AffineKeyPoint(float x, float y, float size e1, float size_t e2, float size_t theta) : pt(x, y)
+    {
+        var(A) = sin2(p) a2+ cos2(p) b2
+        var(D) = cos2(p) a2+ sin2(p) b2
+        cov(A,D) = (a2– b2) cos(p) sin(p)
+    }*/
 
     cv::Point2f pt; //!< coordinates of the keypoints
 
