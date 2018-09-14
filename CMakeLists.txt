@@ -3,7 +3,7 @@ project(iop)
 
 set (CMAKE_CXX_STANDARD 11)
 
-set(OpenCV_DIR $ENV{HOME}/opencv/install/share/OpenCV/)
+set(OpenCV_DIR $ENV{HOME}/libs/opencv/install/share/OpenCV/)
 
 find_package(OpenCV REQUIRED PATHS ${OpenCV_DIR})
 

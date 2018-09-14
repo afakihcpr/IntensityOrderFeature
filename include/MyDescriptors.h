@@ -45,12 +45,12 @@ public:
 
     void computePatchImage(const cv::Mat& image, int patch_per_row, int patch_per_col, int patch_length, int max_patch_num,  cv::Mat& descriptors) const;
 
-protected:
+public:
 
     virtual void computeImpl(const cv::Mat& image, std::vector<AffineKeyPoint>& keypoints, cv::Mat& descriptors) const;
 
 
-    void createLIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;;
+    void createLIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
     void createOIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
     void createMIOP		(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
     void createMIOP_FAST(const cv::Mat& outPatch, const cv::Mat& flagPatch, int inPatchSz, float* des) const;
@@ -60,7 +60,7 @@ protected:
 
 
 	
-private:
+public:
 	int m_dim;
 	int m_bytes;
 	int m_dataType;
